@@ -5,17 +5,25 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.ContentAlpha
+import androidx.wear.compose.material.LocalContentAlpha
 import com.alpamedev.mdcjc.ui.theme.MDCJCTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +49,20 @@ class MainActivity : ComponentActivity() {
 fun ContentMain() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            BottomAppBar {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                    }
+                }
+                Spacer(modifier = Modifier.weight(1f, true))
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(Icons.Filled.MoreVert, contentDescription = "Options")
+                }
+            }
+        }
     ) { padding ->
         Content(Modifier.padding(padding))
     }
