@@ -13,6 +13,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -61,9 +65,12 @@ fun Content(modifier: Modifier = Modifier) {
                         .padding(dimensionResource(id = R.dimen.common_padding_default)),
                     style = MaterialTheme.typography.title3
                 )
+                var urlValue by remember {
+                    mutableStateOf("ANT")
+                }
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = urlValue,
+                    onValueChange = { urlValue = it },
                     label = { Text(text = stringResource(id = R.string.card_input_url)) },
                     singleLine = true,
                     modifier = Modifier
