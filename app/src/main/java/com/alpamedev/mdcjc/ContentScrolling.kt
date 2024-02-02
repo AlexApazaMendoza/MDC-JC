@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,9 +17,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -157,14 +161,25 @@ fun Content(modifier: Modifier = Modifier) {
                         )
                     }
                 )
+                var isSwitchChecked by remember {
+                    mutableStateOf(true)
+                }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
                         checked = isCheckboxEnabled,
                         onCheckedChange = {
                             isCheckboxEnabled = it
-                        }
+                        },
+                        modifier = Modifier.padding(start = dimensionResource(id = R.dimen.common_padding_default))
                     )
                     Text(text = stringResource(id = R.string.card_enable_pass))
+                    Spacer(modifier = Modifier.weight(1f, true))
+                    Text(text = stringResource(id = R.string.card_hide_fab))
+                    Switch(
+                        checked = isSwitchChecked,
+                        onCheckedChange = {isCheckboxEnabled = it},
+                        modifier = Modifier.padding(end = dimensionResource(id = R.dimen.common_padding_default))
+                    )
                 }
             }
         }
