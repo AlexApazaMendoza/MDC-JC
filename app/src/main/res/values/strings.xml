@@ -3,4 +3,7 @@
     <string name="card_title">Black Friday!</string>
     <string name="card_input_url">image URL</string>
     <string name="card_required">Required!</string>
+    <string name="card_password">password</string>
+    <string name="card_enable_pass">Enable Password</string>
+    <string name="card_hide_fab">Hide fab</string>
 </resources>

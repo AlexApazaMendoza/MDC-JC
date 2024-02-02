@@ -7,13 +7,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -40,6 +43,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Checkbox
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ChipBorder
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.alpamedev.mdcjc.ui.theme.MDCJCTheme
@@ -199,6 +205,34 @@ fun Content(modifier: Modifier = Modifier) {
                     valueRange = 0f..10f,
                     steps = 4,
                 )
+                val chipValue by remember {
+                    mutableStateOf("alex@gmail.com")
+                }
+                var chipVisible by remember {
+                    mutableStateOf(true)
+                }
+                if (chipVisible) {
+                    Chip(
+                        onClick = {
+                            Toast.makeText(context, chipValue, Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier
+                            .padding(
+                                start = dimensionResource(id = R.dimen.common_padding_default)
+                            ),
+                        colors = ChipDefaults.primaryChipColors(),
+                        border = ChipDefaults.chipBorder()
+                    ) {
+                        Text(text = chipValue)
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(16.dp)
+                                .clickable { chipVisible = false }
+                        )
+                    }
+                }
             }
         }
     }
