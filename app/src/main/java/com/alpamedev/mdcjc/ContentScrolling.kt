@@ -181,6 +181,18 @@ fun Content(modifier: Modifier = Modifier) {
                         modifier = Modifier.padding(end = dimensionResource(id = R.dimen.common_padding_default))
                     )
                 }
+                var sliderValue by remember {
+                    mutableFloatStateOf(6f)
+                }
+                Slider(
+                    value = sliderValue,
+                    onValueChange = {
+                        sliderValue = it
+                        urlValue = "Vol: ${it.toInt()}"
+                    },
+                    valueRange = 0f..10f,
+                    steps = 4,
+                )
             }
         }
     }
