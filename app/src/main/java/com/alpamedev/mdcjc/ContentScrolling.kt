@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -27,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ContentAlpha
 import androidx.wear.compose.material.MaterialTheme
 import com.alpamedev.mdcjc.ui.theme.MDCJCTheme
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
@@ -37,7 +40,7 @@ fun ContentPreview() {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun Content(modifier: Modifier = Modifier) {
     Column(
@@ -50,13 +53,25 @@ fun Content(modifier: Modifier = Modifier) {
                 .padding(8.dp)
         ) {
             Column {
-                Image(
+                /*Image(
                     painter = painterResource(id = R.drawable.ic_store),
                     contentDescription = null,
                     modifier = Modifier
                         .background(color = colorResource(id = R.color.teal_200))
                         .fillMaxWidth()
                         .height(dimensionResource(id = R.dimen.card_img_cover_height))
+                )*/
+                var urlValue by remember {
+                    mutableStateOf("ANT")
+                }
+                GlideImage(
+                    model = urlValue,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .background(color = colorResource(id = R.color.teal_200))
+                        .fillMaxWidth()
+                        .height(dimensionResource(id = R.dimen.card_img_cover_height)),
+                    contentScale = ContentScale.Crop
                 )
                 Text(
                     text = stringResource(id = R.string.card_title),
@@ -65,9 +80,6 @@ fun Content(modifier: Modifier = Modifier) {
                         .padding(dimensionResource(id = R.dimen.common_padding_default)),
                     style = MaterialTheme.typography.title3
                 )
-                var urlValue by remember {
-                    mutableStateOf("ANT")
-                }
                 OutlinedTextField(
                     value = urlValue,
                     onValueChange = { urlValue = it },
