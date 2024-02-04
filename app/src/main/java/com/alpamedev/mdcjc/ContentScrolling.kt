@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -69,10 +70,14 @@ fun Content(modifier: Modifier = Modifier) {
         modifier = modifier
             .verticalScroll(rememberScrollState())  //Estados de la barra de desplazamiento
     ) {
+        var colorMain by remember {
+            mutableStateOf(Color.LightGray)
+        }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
+                .background(color = colorMain)
         ) {
             Column {
                 /*Image(
@@ -238,6 +243,20 @@ fun Content(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = dimensionResource(id = R.dimen.common_padding_middle))
+                )
+                var colors = listOf("Red", "Green", "Blue")
+                SegmentedControl(
+                    items = colors,
+                    defaultSelectedItemIndex = -1,
+                    cornerRadius = 48,
+                    color = R.color.purple_200,
+                    onItemSelection = {
+                        colorMain = when (it) {
+                            0 -> Color.Red
+                            1 -> Color.Green
+                            else -> Color.Blue
+                        }
+                    }
                 )
             }
         }
