@@ -6,4 +6,7 @@
     <string name="card_password">password</string>
     <string name="card_enable_pass">Enable Password</string>
     <string name="card_hide_fab">Hide fab</string>
+    <string name="card_btn_buy">Buy</string>
+    <string name="card_btn_skip">Skip</string>
+    <string name="large_text">The Friday after Thanksgiving, when shops reduce the price of goods in order to attract customers who want to start their Christmas shopping.</string>
 </resources>
