@@ -48,6 +48,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.wear.compose.material.Button
@@ -82,27 +84,67 @@ fun Content(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            Column {
-                val image = ContextCompat.getDrawable(LocalContext.current, R.drawable.ic_store)
-                Image(bitmap = image!!.toBitmap().asImageBitmap(), contentDescription = null)
-                Button(onClick = { /*TODO*/ }) {
+            ConstraintLayout(
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.common_padding_default)).fillMaxWidth()
+            ) {
+                val (ivCard, btnBuy, btnSkip, tvTitle, tvContent) = createRefs()
+                val image = ContextCompat.getDrawable(LocalContext.current, R.drawable.ic_launcher_foreground)
+                Image(
+                    bitmap = image!!.toBitmap().asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .constrainAs(ivCard) {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                        }
+                )
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.constrainAs(btnBuy) {
+                        top.linkTo(ivCard.bottom)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(parent.end)
+                    }
+                ) {
                     Icon(painter = painterResource(id = R.drawable.ic_store), contentDescription = null)
                     Text(text = stringResource(id = R.string.card_btn_buy))
                 }
-                TextButton(onClick = { /*TODO*/ }) {
+                TextButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.constrainAs(btnSkip) {
+                        top.linkTo(btnBuy.top)
+                        bottom.linkTo(btnBuy.bottom)
+                        end.linkTo(btnBuy.start)
+                        height = Dimension.fillToConstraints
+                    }
+                ) {
                     Text(text = stringResource(id = R.string.card_btn_skip))
                 }
                 Text(
                     text = stringResource(id = R.string.card_title),
                     style = MaterialTheme.typography.title1,
-                    textAlign = TextAlign.Start
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.constrainAs(tvTitle) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        start.linkTo(ivCard.end)
+                        width = Dimension.fillToConstraints
+                    }
                 )
                 Text(
                     text = stringResource(id = R.string.large_text),
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Start,
                     maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.constrainAs(tvContent) {
+                        start.linkTo(tvTitle.start)
+                        end.linkTo(tvTitle.end)
+                        top.linkTo(tvTitle.bottom)
+                        bottom.linkTo(ivCard.bottom)
+                        width = Dimension.fillToConstraints
+                    }
                 )
             }
         }
